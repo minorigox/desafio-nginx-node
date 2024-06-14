@@ -2,7 +2,7 @@ version: '3'
 
 services:
   app:
-    image: minorigox/nodeapp:latest
+    image: minorigox/node:app
     container_name: app
     networks:
       - ospranet
@@ -15,7 +15,7 @@ services:
       - db
       
   db:
-    image: minorigox/mariadb:latest
+    image: mariadb:10.7.1
     command: --innodb-use-native-aio=0
     container_name: db
     restart: always
@@ -29,7 +29,7 @@ services:
       - ospranet
 
   nginx:
-    image: minorigox/nginx:alpine
+    image: minorigox/nginx:app
     container_name: nginx
     networks:
       - ospranet
