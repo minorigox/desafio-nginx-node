@@ -1,0 +1,43 @@
+version: '3'
+
+services:
+  app:
+    image: minorigox/nodeapp:latest
+    container_name: app
+    networks:
+      - ospranet
+    volumes:
+      - ./node:/usr/src/app
+    tty: true
+    ports:
+      - "3000:3000"
+    depends_on:
+      - db
+      
+  db:
+    image: minorigox/mariadb:latest
+    command: --innodb-use-native-aio=0
+    container_name: db
+    restart: always
+    tty: true
+    volumes:
+      - ./mysql:/var/lib/mysql
+    environment:
+      - MYSQL_DATABASE=nodedb
+      - MYSQL_ROOT_PASSWORD=root
+    networks:
+      - ospranet
+
+  nginx:
+    image: minorigox/nginx:alpine
+    container_name: nginx
+    networks:
+      - ospranet
+    ports:
+      - "8080:80"
+    depends_on:
+      - app
+
+networks:
+  ospranet:
+    driver: bridge
