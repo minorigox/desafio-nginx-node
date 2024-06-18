@@ -42,3 +42,6 @@ services:
 networks:
   ospranet:
     driver: bridge
+
+volumes:
+  db_data:
