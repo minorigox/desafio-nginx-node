@@ -17,7 +17,8 @@ services:
       - ospranet
 
   app:
-    image: minorigox/node:app
+    build: 
+      context: ./node
     container_name: app
     networks:
       - ospranet
@@ -30,7 +31,8 @@ services:
       - db
 
   nginx:
-    image: minorigox/nginx:app
+    build: 
+      context: ./nginx
     container_name: nginx
     networks:
       - ospranet
